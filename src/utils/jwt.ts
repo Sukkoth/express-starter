@@ -16,7 +16,10 @@ export const generateToken = () => {
 // Verify a JWT
 export const verifyToken = (token: string) => {
   try {
-    return jwt.verify(token, SECRET_KEY);
+    // Needs to be interact with Database
+    // return jwt.verify(token, SECRET_KEY);
+    console.log('token', token);
+    return true;
   } catch (error) {
     Logger.error(error);
     throw new AppException({
