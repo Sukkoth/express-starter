@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler';
 import { parsePhone } from '@libs/parse-phone';
 import { a2pSchema } from '@utils/validation/a2p-schema';
 import validate from '@utils/validation/validate';
-import * as messagingService from '@services/messaging-service';
+import messagingService from '@services/messaging-service';
 
 /**
  * A2P (Application-to-Person) message controller.

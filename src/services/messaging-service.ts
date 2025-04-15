@@ -31,7 +31,7 @@ type Props = {
  * @throws {AppException} If queueing fails or Redis is unavailable.
  */
 
-export async function addToQueue({ data, serviceType, config, meta }: Props) {
+async function addToQueue({ data, serviceType, config, meta }: Props) {
   const { body: text, smsType, to, callbackUrl } = data;
   try {
     await queueService.addToQueue(serviceType, {
@@ -53,3 +53,5 @@ export async function addToQueue({ data, serviceType, config, meta }: Props) {
     });
   }
 }
+
+export default { addToQueue };
