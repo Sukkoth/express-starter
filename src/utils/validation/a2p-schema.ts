@@ -1,14 +1,13 @@
 import { parsePhone } from '@libs/parse-phone';
 import { z } from 'zod';
+import { SmsType } from '@/types/queue-job';
 
 export const a2pSchema = z
   .object({
     to: z.string().min(9).max(13),
-    callback_url: z.string().url().optional(),
+    callbackUrl: z.string().url().optional(),
     body: z.string().min(1).max(1000),
-    smsType: z.enum(['GSM', 'Unicode'], {
-      required_error: 'type must be at GSM or Unicode',
-    }),
+    smsType: z.nativeEnum(SmsType),
   })
   .superRefine((data, ctx) => {
     //phone number
