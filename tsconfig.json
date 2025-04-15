@@ -16,12 +16,14 @@
     /* JavaScript Support */
     "baseUrl": "./src" /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
-      "@middlewares/*": ["middlewares/*"], // Example path alias for middlewares
-      "@controllers/*": ["controllers/*"], // Example path alias for middlewares
-      "@routes/*": ["routes/*"], // Example path alias for routes
-      "@libs/*": ["libs/*"], // Example path alias for libs
-      "@models/*": ["models/*"], // Example path alias for models
-      "@utils/*": ["utils/*"] // Example path alias for utils
+      "@middlewares/*": ["middlewares/*"], // Path alias for middlewares
+      "@controllers/*": ["controllers/*"], // Path alias for controllers
+      "@routes/*": ["routes/*"], // Path alias for routes
+      "@libs/*": ["libs/*"], // Path alias for libs
+      "@models/*": ["models/*"], // Path alias for models
+      "@utils/*": ["utils/*"], // Path alias for utils
+      "@services/*": ["services/*"], // Path alias for services
+      "@/*": ["*"] // Path alias for root src directory
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
 
     /* Emit */
