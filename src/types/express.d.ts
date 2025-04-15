@@ -1,9 +1,9 @@
-import { UserPayload } from '@utils/jwt'; // Import your User type
+import { SmscConfig } from '@/types/queue-job';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: UserPayload; // Add user property to Request
+      config?: SmscConfig; // Add user property to Request
     }
   }
 }
