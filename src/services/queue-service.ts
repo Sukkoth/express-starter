@@ -1,4 +1,4 @@
-import { apiQueue } from '@/queue';
+import { apiQueue } from '@/queues';
 import { QueueJob } from '@/types/queue-job';
 import { env } from '@libs/configs';
 import { AppException } from '@libs/exceptions/app-exception';
