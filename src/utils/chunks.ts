@@ -82,5 +82,5 @@ function getEncodingLimitError(text: string, encoding: 'GSM-7' | 'UCS-2') {
   // Calculate the max allowed characters
   const maxAllowedCharacters = multiLimit * env.MAX_SMS_CHUNKS;
 
-  return `Message too long for ${encoding.toUpperCase()} encoding. Max allowed is ${maxAllowedCharacters} characters for ${env.MAX_SMS_CHUNKS} chunk(s).`;
+  return `Message too long for ${encoding === 'GSM-7' ? 'GSM' : 'Unicode'} encoding. Max allowed is ${maxAllowedCharacters} characters for ${env.MAX_SMS_CHUNKS} chunk(s).`;
 }
