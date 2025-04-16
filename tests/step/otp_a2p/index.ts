@@ -50,8 +50,8 @@ When(
       },
       data: {
         to: '725143831',
-        smsType: 'GSM',
-        body: 'Here',
+        smsEncoding: 'GSM',
+        text: 'Hello World!',
       },
     });
   },
