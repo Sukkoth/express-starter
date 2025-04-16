@@ -8,8 +8,12 @@ const verifyOTP = asyncHandler(async (req, res) => {
 
 const sendOTP = asyncHandler(async (req, res) => {
   res.json({
+    success: true,
     message: 'OTP message queued successfully',
-    id: '1234567890',
+    data: {
+      to: '1234567890',
+      messageId: '1234567890',
+    },
   });
 });
 
