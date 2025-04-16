@@ -30,14 +30,35 @@
 import { z } from 'zod';
 
 export const envSchema = z.object({
+  /**
+   * The environment the app is running in.
+   */
   NODE_ENV: z
-    .enum(['development', 'production', 'test'])
+    .enum(['development', 'production', 'staging', 'test'])
     .default('development'),
   APP_PORT: z.coerce.number().int().positive().default(3000),
+  /**
+   * The base URL of the app.
+   */
   BASE_URL: z.string().url().default('http://localhost:3000'),
   DB_URL: z.string().url().default('postgres://localhost:5432/mydb'),
   JWT_SECRET: z.string().min(10, 'JWT_SECRET is required'),
+  /**
+   * The maximum number of seconds to wait for a job to be added to the queue before timing out.
+   */
   QUEUE_ADD_RETRY_SECONDS: z.coerce.number().int().positive().default(4),
+  /**
+   * The maximum number of chunks allowed for an SMS message.
+   */
+  MAX_SMS_CHUNKS: z.coerce.number().int().positive().default(6),
+  /**
+   * Minimum number of seconds before an SMS message is considered expired.
+   * Ensures messages aren't scheduled to expire immediately after creation. */
+  SMS_EXPIRE_MINIMUM_DELAY_SECONDS: z.coerce
+    .number()
+    .int()
+    .positive()
+    .default(60),
 });
 
 // Validate and parse process.env at runtime
