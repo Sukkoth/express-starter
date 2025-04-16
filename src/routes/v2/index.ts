@@ -1,6 +1,5 @@
 import { a2pController } from '@controllers/v2/a2p-controller';
 import { otpController } from '@controllers/v2/otp-controller';
-import { camelCaseMiddleware } from '@middlewares/camel-case-middleware';
 
 import express from 'express';
 
@@ -11,7 +10,7 @@ const router = express();
  * @method POST
  * @description Send message from your application
  */
-router.post('/a2p', camelCaseMiddleware, a2pController);
+router.post('/a2p', a2pController);
 
 /**
  * @url /api/v2/otp/register
