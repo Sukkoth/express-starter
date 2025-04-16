@@ -12,7 +12,11 @@ type Props = {
    * This comes from the api request
    */
   data: z.infer<typeof a2pSchema>;
+  /**
+   * The type of message service being used
+   */
   serviceType: MessageServiceType;
+  /**Configuration info needed to send message through kannel to smsc */
   config: SmscConfig;
   /**
    * Any additional metadata to be included with the message.
@@ -32,13 +36,9 @@ type Props = {
  */
 
 async function addToQueue({ data, serviceType, config, meta }: Props) {
-  const { body: text, smsType, to, callbackUrl } = data;
   try {
     await queueService.addToQueue(serviceType, {
-      to,
-      text,
-      smsType,
-      callbackUrl,
+      ...data,
       config,
       id: uuidv4(),
       serviceType: 'A2P',
