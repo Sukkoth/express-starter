@@ -1,5 +1,5 @@
 export type MessageServiceType = 'A2P' | 'OTP';
-export enum SmsType {
+export enum SmsEncoding {
   GSM = 'GSM',
   Unicode = 'Unicode',
 }
@@ -11,12 +11,18 @@ export interface QueueJob {
   to: string;
   /** Message content being sent */
   text: string;
-  /**Which encoding the message is using { @see SmsType}*/
-  smsType: SmsType;
+  /**Which encoding the message is using { @see SmsEncoding}*/
+  smsEncoding: SmsEncoding;
   /**Which service is being used to send the message { @see MessageServiceType} */
   serviceType: MessageServiceType;
   /**Callback url for the message when it's delivered*/
-  callbackUrl?: string;
+  successCallbackUrl?: string;
+  /**Callback url for the message when it fails */
+  errorCallbackUrl?: string;
+  /**Http method to use for the callback */
+  callbacksHttpMethod?: 'GET' | 'POST';
+  /**When the message should expire */
+  expireAt?: number;
   /**SMSC related config */
   config: SmscConfig;
   /**The actual date when the message was received via api call */
