@@ -4,30 +4,35 @@ import { env } from '@libs/configs';
 import { ValidationException } from '@libs/exceptions/validation-exception';
 
 type Props = {
-  /**Message text to be checked */
+  /** Message text to be checked */
   message: string;
-  /**Encoding the user has provided
+  /**
+   * Encoding the user has provided
+   *
    * @link - {@link SmsEncoding}
    */
   encoding?: SmsEncoding;
 };
 
 /**
- * Checks the message and encoding, calculates the number of SMS chunks, and throws an error if the message is too long or the encoding mismatches with message content.
+ * Checks the message and encoding, calculates the number of SMS chunks, and
+ * throws an error if the message is too long or the encoding mismatches with
+ * message content.
  *
- * @param   {Props} - Props              - The message and optional encoding to check.
- * @throws  {ValidationException} - Throws if the message exceeds the allowed chunk count or encoding does not match.
  * @example
- * 
- * ```ts
- *  const { encoding, chunks } = checkMessageChunkAndEncoding({
-      message: 'Hello World',
-      encoding: 'GSM,
-  });
-
-  console.log({ encoding, chunks })
-
- * ```
+ *   ```ts
+ *    const { encoding, chunks } = checkMessageChunkAndEncoding({
+ *         message: 'Hello World',
+ *         encoding: 'GSM,
+ *     });
+ *
+ *     console.log({ encoding, chunks })
+ *
+ *   ```;
+ *
+ * @param {Props} - Props - The message and optional encoding to check.
+ * @throws {ValidationException} - Throws if the message exceeds the allowed
+ *   chunk count or encoding does not match.
  */
 export function checkMessageChunkAndEncoding({ message, encoding }: Props) {
   let result: SegmentedMessage;
@@ -70,8 +75,8 @@ export function checkMessageChunkAndEncoding({ message, encoding }: Props) {
 /**
  * Returns a formatted error message for messages that exceed chunk limits.
  *
- * @param   {string} text - The message text to check.
- * @param   {'gsm'   | 'unicode'} encoding - The encoding type.
+ * @param {string} text - The message text to check.
+ * @param {'gsm' | 'unicode'} encoding - The encoding type.
  */
 function getEncodingLimitError(text: string, encoding: 'GSM-7' | 'UCS-2') {
   const isGsm = encoding === 'GSM-7';

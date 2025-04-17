@@ -1,12 +1,11 @@
 import { ValidationException } from '@libs/exceptions/validation-exception';
 import { ZodSchema, SafeParseReturnType } from 'zod';
 
-/**
- * Options to control the behavior of the `validate` function.
- */
+/** Options to control the behavior of the `validate` function. */
 type ValidateFnOptions = {
   /**
    * Whether to throw an exception if validation fails.
+   *
    * - `true` (default): throws `ValidationException` on failure.
    * - `false`: returns the Zod parse result instead.
    */
@@ -19,8 +18,8 @@ type ValidateFnOptions = {
  * @param schema - The Zod schema used to validate the input.
  * @param data - The data to validate.
  * @param options - Optional settings to control validation behavior.
- * @returns If `throwOnError` is true or omitted, returns the validated data.
- *          If `throwOnError` is false, returns the full Zod parse result.
+ * @returns If `throwOnError` is true or omitted, returns the validated data. If
+ *   `throwOnError` is false, returns the full Zod parse result.
  * @throws {ValidationException} If validation fails and `throwOnError` is true.
  */
 export default function validate<T>(

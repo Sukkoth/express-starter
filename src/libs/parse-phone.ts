@@ -16,22 +16,22 @@ type ParsePhoneResult =
 /**
  * Parses and validates a phone number using libphonenumber-js.
  *
- * If the number is valid, returns the number in E.164 format and identifies
- * the provider based on the national number. Numbers starting with '9' are
- * assumed to belong to 'ethio_telecom', others to 'safaricom'.
- *
- * @param {string} phoneNumber - The phone number to parse and validate.
- *
- * @returns data - {@link ParsePhoneResult} - An object containing the parsed number and provider, or an error message.
+ * If the number is valid, returns the number in E.164 format and identifies the
+ * provider based on the national number. Numbers starting with '9' are assumed
+ * to belong to 'ethio_telecom', others to 'safaricom'.
  *
  * @example
- * const result = parsePhone('+251912345678');
- * if (result.error) {
- *   console.error(result.error);
- * } else {
- *   console.log(result.data?.number);   // "+251912345678"
- *   console.log(result.data?.provider); // "ethio_telecom"
- * }
+ *   const result = parsePhone('+251912345678');
+ *   if (result.error) {
+ *     console.error(result.error);
+ *   } else {
+ *     console.log(result.data?.number); // "+251912345678"
+ *     console.log(result.data?.provider); // "ethio_telecom"
+ *   }
+ *
+ * @param {string} phoneNumber - The phone number to parse and validate.
+ * @returns Data - {@link ParsePhoneResult} - An object containing the parsed
+ *   number and provider, or an error message.
  */
 
 export function parsePhone(phoneNumber: string): ParsePhoneResult {

@@ -33,7 +33,8 @@ export async function addToQueue(jobName: string, job: QueueJob) {
  * Wraps a promise function with a timeout to prevent hanging operations.
  *
  * @param {() => Promise<T>} fn - The async function to execute.
- * @returns {Promise<T>} Resolves with the result of the function if completed in time.
+ * @returns {Promise<T>} Resolves with the result of the function if completed
+ *   in time.
  * @throws {Error} If the function takes longer than the allowed timeout.
  */
 async function timedOutTry<T>(fn: () => Promise<T>): Promise<T> {

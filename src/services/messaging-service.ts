@@ -8,19 +8,17 @@ import { a2pSchema } from '@utils/validation/a2p-schema';
 
 type Props = {
   /**
-   * The data object containing the message details.
-   * This comes from the api request
+   * The data object containing the message details. This comes from the api
+   * request
    */
   data: z.infer<typeof a2pSchema>;
-  /**
-   * The type of message service being used
-   */
+  /** The type of message service being used */
   serviceType: MessageServiceType;
-  /**Configuration info needed to send message through kannel to smsc */
+  /** Configuration info needed to send message through kannel to smsc */
   config: SmscConfig;
   /**
-   * Any additional metadata to be included with the message.
-   * This is optional and can be used for tracking or other purposes.
+   * Any additional metadata to be included with the message. This is optional
+   * and can be used for tracking or other purposes.
    */
   meta?: unknown;
 };
@@ -32,6 +30,7 @@ type Props = {
  * - Packages all necessary data including routing config and service type.
  * - Forwards the message to the queue service for addition to the BullMQ queue.
  * - Throws an AppException if queueing fails.
+ *
  * @throws {AppException} If queueing fails or Redis is unavailable.
  */
 

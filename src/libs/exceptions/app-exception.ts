@@ -9,20 +9,21 @@ type AppExceptionParams = {
 
 /**
  * The stack trace is only available in development mode and set automatically.
- * The cause is also only available in development mode but you need to pass the Error instance.
+ * The cause is also only available in development mode but you need to pass the
+ * Error instance.
  *
  * @example
- * ```ts
+ *   ```ts
  *   try {
- *    await stripeClient.charges.create({ amount });
+ *   await stripeClient.charges.create({ amount });
  *   } catch (stripeError) {
- *    throw new AppException({
- *      status: 400,
- *      code: 'PAYMENT_FAILED',
- *      message: 'Payment processing failed',
- *      cause: stripeError
- *    });
- * }
+ *   throw new AppException({
+ *   status: 400,
+ *   code: 'PAYMENT_FAILED',
+ *   message: 'Payment processing failed',
+ *   cause: stripeError
+ *   });
+ *   }
  */
 export class AppException extends Error {
   public readonly status: number;

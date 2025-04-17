@@ -7,23 +7,23 @@ type ValidationExceptionParams = {
 };
 
 /**
- * Advanced custom error class
- * The stack trace is only available in development mode and set automatically.
- * The cause is also only available in development mode but you need to pass the Error instance.
+ * Advanced custom error class The stack trace is only available in development
+ * mode and set automatically. The cause is also only available in development
+ * mode but you need to pass the Error instance.
  *
  * @example
- * ```ts
- * const result = validate(a2pSchema, req.body, {
- *   throwOnError: false,
- * });
- *
- * if (!result.success) {
- *   throw new ValidationException({
- *     message: 'Validation error',
- *     violations: result.error.flatten().fieldErrors,
+ *   ```ts
+ *   const result = validate(a2pSchema, req.body, {
+ *     throwOnError: false,
  *   });
- * }
- * ```
+ *
+ *   if (!result.success) {
+ *     throw new ValidationException({
+ *       message: 'Validation error',
+ *       violations: result.error.flatten().fieldErrors,
+ *     });
+ *   }
+ *   ```;
  */
 export class ValidationException extends Error {
   public readonly status: number;

@@ -27,8 +27,8 @@ export const SERVER_SIDE_ERRORS_CODES: Array<keyof typeof ErrorCodes> = [
  * @param err {@link Error}- The Express error (can be ours or another)
  * @param req {@link Request}- The initial request
  * @param res {@link Response}- The response object
- * @param next {@link NextFunction}- Allows passing to the next middleware if it exists
- *
+ * @param next {@link NextFunction}- Allows passing to the next middleware if it
+ *   exists
  */
 export const errorHandler = (
   err: Error,
@@ -66,9 +66,7 @@ export const errorHandler = (
     });
   }
 
-  /**
-   * In other cases, we return a 500
-   */
+  /** In other cases, we return a 500 */
   Logger.error(ErrorCodes.INTERNAL_SERVER_ERROR, {
     message: isDev
       ? err?.message || 'Something went wrong'

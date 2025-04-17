@@ -17,7 +17,8 @@ connection.on('error', () => {
  * - Handles messages submitted from the API (OTP, A2P).
  * - On this project, it serves only as prouder
  * - Worker is set up on SMS-SERVICE
- * - Configured to skip waiting for Redis connection readiness to avoid blocking behavior.
+ * - Configured to skip waiting for Redis connection readiness to avoid blocking
+ *   behavior.
  *
  * Queue name: `api-queue`
  */

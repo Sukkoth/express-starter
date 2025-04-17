@@ -11,13 +11,11 @@ export const a2pSchema = z
     callbacksHttpMethod: z.enum(['GET', 'POST']).optional(),
     text: z.string().min(1).max(1000),
     /**
-     * `GSM` for standard, `Unicode` for emojis, etc.
-     * if user leaves this as empty, the message type will be detected automatically
+     * `GSM` for standard, `Unicode` for emojis, etc. if user leaves this as
+     * empty, the message type will be detected automatically
      */
     smsEncoding: z.nativeEnum(SmsEncoding),
-    /**
-     * When the message should expire
-     * */
+    /** When the message should expire */
     expireAt: z
       .number()
       .int()
@@ -31,9 +29,7 @@ export const a2pSchema = z
       .optional(),
   })
   .superRefine((data, ctx) => {
-    /**
-     * Parse and validate the phone number
-     */
+    /** Parse and validate the phone number */
     const { data: phone, error } = parsePhone(data.to);
     if (error) {
       ctx.addIssue({
