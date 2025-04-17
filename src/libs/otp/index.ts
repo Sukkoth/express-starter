@@ -1,4 +1,4 @@
-import { OtpCharacters } from '@/types/enums';
+import { OtpCharacters } from '@/types/otp';
 
 /**
  * @param length - The length of the OTP to generate.
