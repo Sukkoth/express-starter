@@ -44,6 +44,7 @@ export const errorHandler = (
 
   if (err instanceof AppException) {
     return res.status(err.status).json({
+      success: false,
       code:
         err.code && isDev
           ? SERVER_SIDE_ERRORS_CODES.includes(err.code)
