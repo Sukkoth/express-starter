@@ -77,3 +77,22 @@ export const otpSchema = z
       data.to = phone!.number;
     }
   });
+
+export const verifyOtpSchema = z
+  .object({
+    otp: z.string().min(4).max(20),
+    phoneNumber: z.string().min(9).max(13),
+  })
+  .superRefine((data, ctx) => {
+    /** Parse and validate the phone number */
+    const { data: phone, error } = parsePhone(data.phoneNumber);
+    if (error) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['phoneNumber'],
+        message: 'Invalid phone number',
+      });
+    } else {
+      data.phoneNumber = phone!.number;
+    }
+  });
