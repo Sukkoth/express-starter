@@ -1,5 +1,7 @@
 import { OtpCharacters } from '@/types/otp';
 import encryption from '@libs/encryption';
+import { AppException } from '@libs/exceptions/app-exception';
+import { ErrorCodes } from '@libs/exceptions/error-codes';
 import otp from '@libs/otp';
 
 type GenerateOtpOptions = {
@@ -50,14 +52,38 @@ export async function verifyOtp(
   from: string,
   phoneNumber: string,
 ) {
-  console.log({ otp, from, phoneNumber });
+  console.log({ from, phoneNumber });
+  // TODO replace this with actual db fetching and remove these static values
   //fetch from db
+  const hashedDataFromDb =
+    '$2a$10$f7.NmYVKNNcFMI1daoowxucOsPDOw.ezSiWH.jpogPYknjV8CSLPC'; //the matching otp is 2848
 
   //if not found, throw error
+  if (!hashedDataFromDb) {
+    throw new AppException({
+      status: 400,
+      message: 'Invalid OTP',
+      code: ErrorCodes.BAD_REQUEST,
+    });
+  }
 
-  //else decrypt and compare
+  //else compare hash
+  const hashMatches = encryption.compareHash(otp, hashedDataFromDb);
 
-  return true;
+  /**
+   * Why throw 400 instead of 401? 401 is when the request between the servers
+   * is unauthorized. But here, the server successfully passed the authorization
+   * logic but the request is invalid.
+   */
+  if (!hashMatches) {
+    throw new AppException({
+      status: 400,
+      message: 'Invalid OTP',
+      code: ErrorCodes.BAD_REQUEST,
+    });
+  }
+
+  return hashMatches;
 }
 
 export default {
