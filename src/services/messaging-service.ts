@@ -5,6 +5,7 @@ import { randomUUID as uuidv4 } from 'crypto';
 import { AppException } from '@libs/exceptions/app-exception';
 import { ErrorCodes } from '@libs/exceptions/error-codes';
 import { a2pSchema } from '@utils/validation/a2p-schema';
+import { getJobOptions } from '@/queues/get-job-options';
 
 type Props = {
   /**
@@ -36,14 +37,18 @@ type Props = {
 
 async function addToQueue({ data, serviceType, config, meta }: Props) {
   try {
-    await queueService.addToQueue(serviceType, {
-      ...data,
-      config,
-      id: uuidv4(),
-      serviceType: 'A2P',
-      createdAt: new Date(),
-      meta,
-    });
+    await queueService.addToQueue(
+      serviceType,
+      {
+        ...data,
+        config,
+        id: uuidv4(),
+        serviceType: 'A2P',
+        createdAt: new Date(),
+        meta,
+      },
+      getJobOptions(serviceType),
+    );
   } catch {
     throw new AppException({
       status: 500,

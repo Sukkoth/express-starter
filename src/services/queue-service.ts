@@ -4,18 +4,25 @@ import { env } from '@libs/configs';
 import { AppException } from '@libs/exceptions/app-exception';
 import { ErrorCodes } from '@libs/exceptions/error-codes';
 import Logger from '@libs/logger';
+import { DefaultJobOptions } from 'bullmq';
 
 /**
  * Adds a job to the BullMQ queue with a timeout wrapper to handle Redis delays.
  *
  * @param {string} jobName - The name of the job to add.
  * @param {QueueJob} job - The job payload to queue.
+ * @param {DefaultJobOptions} jobOptions - Options for the job. -
+ *   {@link DefaultJobOptions}
  * @throws {AppException} When adding to the queue fails or times out.
  */
-export async function addToQueue(jobName: string, job: QueueJob) {
+export async function addToQueue(
+  jobName: string,
+  job: QueueJob,
+  jobOptions: DefaultJobOptions,
+) {
   try {
     await timedOutTry<void>(async () => {
-      await apiQueue.add(jobName, job);
+      await apiQueue.add(jobName, job, jobOptions);
     });
   } catch {
     Logger.error(ErrorCodes.REDIS_TIMEOUT, {
