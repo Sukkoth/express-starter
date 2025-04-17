@@ -1,6 +1,6 @@
 import messagingService from '@services/messaging-service';
 import otpService from '@services/otp-service';
-import { otpSchema } from '@utils/validation/otp-schema';
+import { otpSchema, verifyOtpSchema } from '@utils/validation/otp-schema';
 import validate from '@utils/validation/validate';
 import asyncHandler from 'express-async-handler';
 import { SmsEncoding } from '@/types/queue-job';
@@ -54,13 +54,18 @@ const sendOTP = asyncHandler(async (req, res) => {
     data: {
       to: data.to,
       messageId,
+      otp,
+      encryptedOtp: hashedOtp,
     },
   });
 });
 
 const verifyOTP = asyncHandler(async (req, res) => {
+  const data = validate(verifyOtpSchema, req.body);
+  await otpService.verifyOtp(data.otp, req.config!.from, data.phoneNumber);
   res.json({
     message: 'OTP is valid',
+    data,
   });
 });
 
