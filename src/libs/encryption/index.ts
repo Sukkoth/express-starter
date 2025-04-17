@@ -82,4 +82,14 @@ function hash(text: string, salt: number = env.HASH_SALT): string {
   return bcrypt.hashSync(text, bcrypt.genSaltSync(salt));
 }
 
-export default { encrypt, decrypt, hash };
+/**
+ * Compares a text with a hashed version of it.
+ *
+ * @param text - Text to compare
+ * @param hash - Hashed version to compare
+ */
+function compareHash(text: string, hash: string): boolean {
+  return bcrypt.compareSync(text, hash);
+}
+
+export default { encrypt, decrypt, hash, compareHash };
