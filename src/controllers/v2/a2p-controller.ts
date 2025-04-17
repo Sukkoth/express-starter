@@ -10,7 +10,8 @@ import { randomUUID } from 'node:crypto';
  *
  * - Validates incoming request body using `a2pSchema`.
  * - Adds the validated message to the main messaging queue.
- * - Responds with a success message, message ID, recipient phone, and detected provider.
+ * - Responds with a success message, message ID, recipient phone, and detected
+ *   provider.
  *
  * @route POST /api/v2/a2p
  * @access Protected (requires auth middleware)
