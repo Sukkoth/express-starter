@@ -62,6 +62,7 @@ const sendOTP = asyncHandler(async (req, res) => {
 
 const verifyOTP = asyncHandler(async (req, res) => {
   const data = validate(verifyOtpSchema, req.body);
+
   await otpService.verifyOtp(data.otp, req.config!.from, data.phoneNumber);
   res.json({
     message: 'OTP is valid',

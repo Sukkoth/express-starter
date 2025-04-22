@@ -17,9 +17,9 @@ router.post('/a2p', a2pController);
  * Send OTP to user
  *
  * @function POST
- * @url /api/v2/otp/register
+ * @url /api/v2/otp
  */
-router.post('/otp/register', otpController.sendOTP);
+router.post('/otp', otpController.sendOTP);
 
 /**
  * Verify OTP against given number
