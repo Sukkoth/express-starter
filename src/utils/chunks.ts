@@ -19,16 +19,12 @@ type Props = {
  * throws an error if the message is too long or the encoding mismatches with
  * message content.
  *
- * @example
- *   ```ts
- *    const { encoding, chunks } = checkMessageChunkAndEncoding({
- *         message: 'Hello World',
- *         encoding: 'GSM,
- *     });
+ *      const { encoding, chunks } = checkMessageChunkAndEncoding({
+ *           message: 'Hello World',
+ *           encoding: 'GSM,
+ *       });
  *
- *     console.log({ encoding, chunks })
- *
- *   ```;
+ *       console.log({ encoding, chunks })
  *
  * @param {Props} - Props - The message and optional encoding to check.
  * @throws {ValidationException} - Throws if the message exceeds the allowed
