@@ -17,6 +17,7 @@ import { randomUUID } from 'node:crypto';
  * @access Protected (requires auth middleware)
  */
 
+// TODO Make this accept array of messages
 export const a2pController = asyncHandler(async (req, res) => {
   //validate and throw if invalid
   const data = validate(a2pSchema, req.body);
