@@ -61,7 +61,7 @@ The template includes a robust error handling system with predefined error codes
 - **Husky**: Git hooks for pre-commit actions
   - Runs linting and tests before commits
 - **lint-staged**: Runs linters on staged git files
-- **Jest**: Testing framework with TypeScript support
+- **Cucumber**: Testing framework
 
 ## Available Commands
 
