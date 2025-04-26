@@ -33,6 +33,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^6.6.0",
     "@types/morgan": "^1.9.9",
     "axios": "^1.8.4",
     "bcryptjs": "^2.4.3",
@@ -47,6 +48,7 @@
     "libphonenumber-js": "^1.12.6",
     "module-alias": "^2.2.3",
     "morgan": "^1.10.0",
+    "prisma": "^6.6.0",
     "sms-segments-calculator": "^1.2.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
@@ -87,5 +89,15 @@
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "@scarf/scarf",
+      "esbuild",
+      "msgpackr-extract",
+      "prisma"
+    ]
   }
 }
