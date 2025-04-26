@@ -14,6 +14,9 @@ const compat = new FlatCompat({
 });
 
 export default [
+  {
+    ignores: ['src/libs/prisma/generated/*'],
+  },
   ...compat.extends(
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',

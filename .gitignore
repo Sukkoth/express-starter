@@ -131,3 +131,6 @@ dist
 
 # IDE
 .idea
+
+#ignore prisma generated data
+src/libs/prisma/generated
