@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/libs/prisma/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Otp {
+  id         String  @id @default(uuid())
+  otp        String
+  from       String
+  to         String
+  // create_attempts   Int
+  // verify_attempts   Int
+  // last_generated_at BigInt
+  // last_tried_at     BigInt
+  expires_at BigInt
+  is_valid   Boolean @default(true)
+  created_at BigInt  @default(dbgenerated("EXTRACT(EPOCH FROM NOW())::BIGINT"))
+  updated_at BigInt  @default(dbgenerated("EXTRACT(EPOCH FROM NOW())::BIGINT"))
+
+  @@map("otps")
+}
