@@ -4,6 +4,7 @@ import { otpSchema, verifyOtpSchema } from '@utils/validation/otp-schema';
 import validate from '@utils/validation/validate';
 import asyncHandler from 'express-async-handler';
 import { SmsEncoding } from '@/types/queue-job';
+import { env } from '@libs/configs';
 
 /**
  * Handles the sending of a One-Time Password (OTP).
@@ -54,16 +55,28 @@ const sendOTP = asyncHandler(async (req, res) => {
     data: {
       to: data.to,
       messageId,
-      otp,
-      encryptedOtp: hashedOtp,
+      otp: env.NODE_ENV === 'development' ? otp : undefined,
+      encryptedOtp: env.NODE_ENV === 'development' ? hashedOtp : undefined,
     },
   });
 });
 
+/**
+ * Verifies the provided OTP for a given phone number.
+ *
+ * This function validates the request body against the `verifyOtpSchema`, then
+ * uses the `otpService` to verify the OTP. If the OTP is valid, it responds
+ * with a success message and the validated data.
+ *
+ * @returns A JSON response with a success message and the validated data.
+ * @throws Will throw an error if the OTP validation fails or if the request
+ *   body is invalid.
+ */
 const verifyOTP = asyncHandler(async (req, res) => {
   const data = validate(verifyOtpSchema, req.body);
 
   await otpService.verifyOtp(data.otp, req.config!.from, data.phoneNumber);
+
   res.json({
     message: 'OTP is valid',
     data,
