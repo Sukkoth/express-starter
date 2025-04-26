@@ -4,25 +4,24 @@ import { AppException } from '@libs/exceptions/app-exception';
 import { ErrorCodes } from '@libs/exceptions/error-codes';
 import { env } from '@libs/configs';
 
-const SECRET_KEY = env.JWT_SECRET || '';
+const { JWT_SECRET } = env;
 
 // Generate a JWT for a user
 export const generateToken = () => {
-  if (!SECRET_KEY) {
-    throw new Error('JWT_SECRET is not defined');
-  }
-  return jwt.sign('', SECRET_KEY, { expiresIn: '1h' });
+  return jwt.sign('', JWT_SECRET, { expiresIn: '10d' });
 };
 
 // Verify a JWT
 export const verifyToken = (token: string) => {
   try {
-    // Needs to be interact with Database
-    // return jwt.verify(token, SECRET_KEY);
-    console.log('token', token);
-    return true;
+    const verification = jwt.verify(token, JWT_SECRET);
+    return !!verification;
+    //TODO take data from the verify method and check the credentials from do
   } catch (error) {
-    Logger.error(error);
+    Logger.error(ErrorCodes.INVALID_TOKEN, {
+      message: 'Invalid or expired token',
+      error,
+    });
     throw new AppException({
       status: 401,
       message: 'Invalid or expired token',
