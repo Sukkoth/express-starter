@@ -1,18 +1,20 @@
 import winston from 'winston';
 import util from 'util';
 import { env } from '@libs/configs';
+import { asyncLocalStorage } from '@libs/context';
+import { DateTime } from 'luxon';
 
 // Define log levels
 const levels = {
-  error: 0,
-  warn: 1,
-  info: 2,
-  http: 3,
-  debug: 4,
+  error: 0, // Critical failures
+  warn: 1, // Potential issues
+  http: 2, // HTTP request logs (middleware, API)
+  info: 3, // App-level info (startup, status)
+  debug: 4, // Low-level debug info
 };
 
 // Determine log level based on environment
-const level = () => (env.NODE_ENV === 'development' ? 'debug' : 'warn');
+const level = () => (env.NODE_ENV === 'development' ? 'debug' : 'info');
 
 // Define color scheme for log levels
 const colors = {
@@ -26,10 +28,26 @@ const colors = {
 // Apply colors to Winston
 winston.addColors(colors);
 
+// 3. Configure Winston logger with a format that adds requestId
+const requestIdFormat = winston.format((info) => {
+  const store = asyncLocalStorage.getStore();
+  if (store) {
+    // Add the requestId to each log message
+    (info as unknown as { requestId: string }).requestId = store.requestId;
+  }
+  return info;
+});
+
 // Custom log format that ensures metadata is displayed correctly
 const format = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-  winston.format.printf(({ timestamp, level, message, ...meta }) => {
+  requestIdFormat(),
+  winston.format.timestamp({
+    format: () =>
+      DateTime.now()
+        .setZone('Africa/Addis_Ababa')
+        .toFormat('yyyy-MM-dd HH:mm:ss.SSS'),
+  }),
+  winston.format.printf(({ timestamp, level, requestId, message, ...meta }) => {
     const coloredLevel = winston.format
       .colorize()
       .colorize(level, level.toUpperCase());
@@ -58,7 +76,9 @@ const format = winston.format.combine(
       ? ` ${util.inspect(cleanedMeta, { colors: true, depth: null })} ` //mind the space at the start and end
       : '';
 
-    return `${timestamp} ${coloredLevel}: ${formattedMessage}${metaString}`;
+    const idLabel = requestId ? `[requestId: ${requestId}] ` : '';
+
+    return `${timestamp} ${coloredLevel}: ${idLabel}${formattedMessage}${metaString}`;
   }),
 );
 
@@ -76,29 +96,4 @@ const Logger = winston.createLogger({
   transports,
 });
 
-// Ensure Console transport logs all levels
-Logger.transports.forEach((t) => {
-  if (t instanceof winston.transports.Console) {
-    t.level = 'debug'; // Allow all levels in console (Look at the table below to configure)
-  }
-});
-
 export default Logger;
-
-/*
- * Winston log levels are hierarchical. Each level includes the levels below it:
- *
- * - `error`: Logs only `error`.
- * - `warn`: Logs `warn` and `error`.
- * - `info`: Logs `info`, `warn`, and `error`.
- * - `http`: Logs `http`, `info`, `warn`, and `error`.
- * - `debug`: Logs everything: `debug`, `http`, `info`, `warn`, and `error`.
- *
- * Example:
- * const Logger = winston.createLogger({
- *   level: 'info', // Logs 'info', 'warn', and 'error'.
- *   levels,
- *   format,
- *   transports,
- * });
- */
