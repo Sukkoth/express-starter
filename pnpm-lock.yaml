@@ -38,6 +38,9 @@ importers:
       libphonenumber-js:
         specifier: ^1.12.6
         version: 1.12.6
+      luxon:
+        specifier: ^3.6.1
+        version: 3.6.1
       module-alias:
         specifier: ^2.2.3
         version: 2.2.3
@@ -87,6 +90,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: ^9.0.6
         version: 9.0.9
+      '@types/luxon':
+        specifier: ^3.6.2
+        version: 3.6.2
       '@types/node':
         specifier: ^22.5.1
         version: 22.13.14
@@ -684,6 +690,9 @@ packages:
 
   '@types/jsonwebtoken@9.0.9':
     resolution: {integrity: sha512-uoe+GxEuHbvy12OUQct2X9JenKM3qAscquYymuQN4fMWG9DBQtykrQEFcAbVACF7qaLw9BePSodUL0kquqBJpQ==}
+
+  '@types/luxon@3.6.2':
+    resolution: {integrity: sha512-R/BdP7OxEMc44l2Ex5lSXHoIXTB2JLNa3y2QISIbr58U/YcsffyQrYW//hZSdrfxrjRZj3GcUoxMPGdO8gSYuw==}
 
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
@@ -3810,6 +3819,8 @@ snapshots:
     dependencies:
       '@types/ms': 2.1.0
       '@types/node': 22.13.14
+
+  '@types/luxon@3.6.2': {}
 
   '@types/methods@1.1.4': {}
 
