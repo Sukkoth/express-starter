@@ -36,7 +36,7 @@ export const envSchema = z.object({
   APP_PORT: z.coerce.number().int().positive().default(3000),
   BASE_URL: z.string().url().default('http://localhost:3000'),
   DB_URL: z.string().url().default('postgres://localhost:5432/mydb'),
-  JWT_SECRET: z.string().min(10, 'JWT_SECRET is required'),
+  // JWT_SECRET: z.string().min(10, 'JWT_SECRET is required'),
 });
 
 // Validate and parse process.env at runtime

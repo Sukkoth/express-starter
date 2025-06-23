@@ -12,8 +12,11 @@ import apiV2Routes from '@routes/v2';
 import { errorHandler } from '@middlewares/error-middleware';
 import { authenticateJWT } from '@middlewares/auth-middleware';
 import { env } from '@libs/configs';
+import { contextMiddleware } from '@middlewares/context-middleware';
 
 const app = express();
+app.use(contextMiddleware);
+
 const port = env.APP_PORT;
 
 // Add JSON middleware to parse incoming requests
